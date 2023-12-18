@@ -31,7 +31,7 @@ class Event(models.Model):
     wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Event: {self.type}"
+        return f"Event: {self.get_type_display()}"
     
     class Meta:
         ordering = ['start_date_time']
