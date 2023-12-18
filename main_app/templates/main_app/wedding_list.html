@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Weddings List View!</h1>
+
+{% for wedding in wedding_list %}
+<a href="{% url 'weddings_detail' wedding.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ wedding.name }}</span>
+            <p>{{ wedding.description }}</p>
+        </div>
+    </div>
+</a>
+{% endfor %}
+
+{% endblock content %}
+    
