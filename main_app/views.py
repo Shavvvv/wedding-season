@@ -34,4 +34,8 @@ class EventDetail(DetailView):
 
 class EventCreate(CreateView):
     model = Event
-    fields = '__all__'
+    fields = ['type', 'description', 'start_date_time', 'end_date_time', 'venue']
+
+class EventDelete(DeleteView):
+    model = Event
+    success_url = '/weddings/'

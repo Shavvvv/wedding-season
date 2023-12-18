@@ -33,5 +33,8 @@ class Event(models.Model):
     def __str__(self):
         return f"Event: {self.get_type_display()}"
     
+    def get_absolute_url(self):
+        return reverse('events_list', kwargs={'pk': self.wedding.id})
+
     class Meta:
         ordering = ['start_date_time']
