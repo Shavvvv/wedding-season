@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView,UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Wedding
+from .models import Wedding, Event
 
 # Create your views here.
 def home(request):
@@ -25,3 +25,6 @@ class WeddingDelete(DeleteView):
 class WeddingUpdate(UpdateView):
     model = Wedding
     fields = ['description']
+
+class EventList(ListView):
+    model = Event
