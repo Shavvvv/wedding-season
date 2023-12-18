@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 
 from .models import Wedding
 
@@ -17,3 +17,7 @@ class WeddingDetail(DetailView):
 class WeddingCreate(CreateView):
     model = Wedding
     fields = '__all__'
+
+class WeddingDelete(DeleteView):
+    model = Wedding
+    success_url = '/weddings/'
