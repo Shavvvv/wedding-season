@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Delete Wedding</h1>
+<p>Are you sure you want to delete {{ wedding.name }}?</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Delete</button>
+    <a href="{% url 'weddings_detail' wedding.id %}">Cancel</a>
+</form>
+
+{% endblock content %}
+    

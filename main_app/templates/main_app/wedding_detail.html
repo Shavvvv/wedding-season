@@ -10,6 +10,9 @@
             <br>
             <p>{{ wedding.description|linebreaks }}</p>
         </div>
+        <div class="card-action">
+            <a href="{% url 'weddings_delete' wedding.id %}">Delete</a>
+        </div>
     </div>
 </div>
 
