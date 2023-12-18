@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Wedding Detail Page!</h1>
+<div class="col s6">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ wedding.name }}</span>
+            <br>
+            <p>{{ wedding.description|linebreaks }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
