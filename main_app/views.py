@@ -8,10 +8,11 @@ from .models import Wedding, Event
 def home(request):
     return render(request, 'home.html')
 
-class WeddingList(ListView):
-    model = Wedding
+def weddings_detail(request, wedding_id):
+    wedding = Wedding.objects.get(id=wedding_id)
+    return render(request, 'main_app/wedding_detail.html', {'wedding': wedding})
 
-class WeddingDetail(DetailView):
+class WeddingList(ListView):
     model = Wedding
 
 class WeddingCreate(CreateView):
