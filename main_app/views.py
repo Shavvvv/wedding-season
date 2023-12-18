@@ -31,3 +31,7 @@ class EventList(ListView):
 
 class EventDetail(DetailView):
     model = Event
+
+class EventCreate(CreateView):
+    model = Event
+    fields = '__all__'
