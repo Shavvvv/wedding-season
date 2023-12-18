@@ -5,15 +5,15 @@
 <h1>Event List View!</h1>
 
 {% for event in event_list %}
-
+<a href="{% url 'events_detail' event.id %}">
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ event.get_type_display }}</span>
             <p>{{ event.start_date_time }}</p>
         </div>
     </div>
+</a>
 
 {% endfor %}
 
 {% endblock content %}
-    

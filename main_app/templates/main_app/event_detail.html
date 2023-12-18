@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{event.wedding.name }}</h1>
+<div class="col s6">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ event.get_type_display }}</span>
+            <br>
+            <p>Venue: {{ event.venue}}</p>
+            <p>Starts: {{ event.start_date_time}}</p>
+            <p>Ends: {{ event.end_date_time}}</p>
+            <p>Description: {{ event.description }}</p>
+        </div>
+        <div class="card-action">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

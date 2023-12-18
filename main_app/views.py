@@ -28,3 +28,6 @@ class WeddingUpdate(UpdateView):
 
 class EventList(ListView):
     model = Event
+
+class EventDetail(DetailView):
+    model = Event
