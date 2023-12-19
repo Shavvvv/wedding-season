@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Wedding, Event
+from .models import Wedding, Event, Profile
 from .forms import EventForm, UserForm, ProfileForm
 
 # Create your views here.
@@ -26,7 +26,8 @@ def add_event(request, wedding_id):
     return redirect('weddings_detail', wedding_id=wedding_id)
 
 class WeddingList(ListView):
-    model = Wedding
+    def get_queryset(self):
+        return Wedding.objects.filter(profiles__id=self.request.user.profile.id)
 
 class WeddingCreate(CreateView):
     model = Wedding
