@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Wedding, Event
-from .forms import EventForm
+from .forms import EventForm, UserProfileForm
 
 # Create your views here.
 def home(request):
@@ -32,9 +34,9 @@ class WeddingCreate(CreateView):
 
     def form_valid(self,form):
         #Many to Many id troubleshoot
-        self.object = form.save(commit=False)
-        self.object.profiles.add(self.request.user.profile)
-        self.object.save()
+        form.save()
+        form.instance.profiles.add(self.request.user.profile)
+        form.save()
         return super().form_valid(form)
 
 class WeddingDelete(DeleteView):
@@ -58,3 +60,16 @@ class EventUpdate(UpdateView):
     model = Event
     fields = ['description', 'start_date_time', 'end_date_time', 'venue']
     
+def signup(request):
+    error_message =''
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('weddings_list')
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = UserProfileForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)

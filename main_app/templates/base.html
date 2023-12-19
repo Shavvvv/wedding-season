@@ -22,16 +22,19 @@
         </ul>
         <ul class="right">
           {% if user.is_authenticated %}
-            <li><a href="{% url 'weddings_list' %}">All Weddings</a></li>
-            <li><a href="{% url 'weddings_create' %}">Add Wedding</a></li>
-            <li>
-              <form id="logout-form" action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn">Log Out</button>
-              </form>
-            </li>
+          <li><a href="{% url 'weddings_list' %}">All Weddings</a></li>
+          <li><a href="{% url 'weddings_create' %}">Add Wedding</a></li>
+          <li>
+            <form id="logout-form" action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Log Out</button>
+            </form>
+          </li>
           {% else %}
-            <li><a href="{% url 'login' %}">Log In</a></li>
+          <li>
+            <a href="{% url 'signup' %}">Sign Up</a>
+          </li>
+          <li><a href="{% url 'login' %}">Log In</a></li>
           {% endif %}
         </ul>
       </div>
