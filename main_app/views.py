@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import Wedding, Event
+from .forms import EventForm
 
 # Create your views here.
 def home(request):
@@ -10,7 +11,16 @@ def home(request):
 
 def weddings_detail(request, wedding_id):
     wedding = Wedding.objects.get(id=wedding_id)
-    return render(request, 'main_app/wedding_detail.html', {'wedding': wedding})
+    event_form = EventForm()
+    return render(request, 'main_app/wedding_detail.html', {'wedding': wedding, 'event_form': event_form})
+
+def add_event(request, wedding_id):
+    form = EventForm(request.POST)
+    if form.is_valid():
+        new_event = form.save(commit=False)
+        new_event.wedding_id = wedding_id
+        new_event.save()
+    return redirect('weddings_detail', wedding_id=wedding_id)
 
 class WeddingList(ListView):
     model = Wedding
@@ -26,9 +36,6 @@ class WeddingDelete(DeleteView):
 class WeddingUpdate(UpdateView):
     model = Wedding
     fields = ['description']
-
-class EventList(ListView):
-    model = Event
 
 class EventDetail(DetailView):
     model = Event

@@ -25,8 +25,8 @@ class Event(models.Model):
         choices=EVENT_TYPES,
     )
     description = models.TextField(max_length=250)
-    start_date_time = models.DateTimeField()
-    end_date_time = models.DateTimeField()
+    start_date_time = models.DateTimeField('Start Date and Time')
+    end_date_time = models.DateTimeField('End Date and Time')
     venue = models.CharField(max_length=100)
     wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE)
 
