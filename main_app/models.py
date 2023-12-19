@@ -36,7 +36,7 @@ class Wedding(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('weddings_detail', kwargs={'pk': self.pk})
+        return reverse('weddings_detail', kwargs={'wedding_id': self.id})
     
 class Event(models.Model):
     type = models.CharField(
