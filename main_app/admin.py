@@ -8,6 +8,7 @@ from .models import Wedding, Event, Profile
 # Register your models here.
 admin.site.register(Wedding)
 admin.site.register(Event)
+admin.site.register(Profile)
 
 # Define an inline admin descriptor for Profile model
 # which acts a bit like a singleton
