@@ -32,9 +32,9 @@ class WeddingCreate(CreateView):
 
     def form_valid(self,form):
         #Many to Many id troubleshoot
-        self.object = form.save(commit=False)
-        self.object.profiles.add(self.request.user.profile)
-        self.object.save()
+        form.save()
+        form.instance.profiles.add(self.request.user.profile)
+        form.save()
         return super().form_valid(form)
 
 class WeddingDelete(DeleteView):
