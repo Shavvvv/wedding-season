@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.urls import reverse
 
 from .models import Wedding, Event
 from .forms import EventForm
@@ -40,10 +41,8 @@ class WeddingUpdate(UpdateView):
 class EventDetail(DetailView):
     model = Event
 
-class EventCreate(CreateView):
-    model = Event
-    fields = ['type', 'description', 'start_date_time', 'end_date_time', 'venue']
-
 class EventDelete(DeleteView):
     model = Event
-    success_url = '/weddings/'
+    def get_success_url(self):
+        wedding = self.object.wedding 
+        return reverse('weddings_detail', kwargs={'wedding_id': wedding.id})
