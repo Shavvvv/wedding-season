@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import Wedding, Event
-from .forms import EventForm, UserProfileForm
+from .forms import EventForm, UserForm, ProfileForm
 
 # Create your views here.
 def home(request):
@@ -63,13 +63,18 @@ class EventUpdate(UpdateView):
 def signup(request):
     error_message =''
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            user = form.save()
+        user_form = UserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user_id = user.id
+            profile = profile_form.save()
             login(request, user)
             return redirect('weddings_list')
         else:
             error_message = 'Invalid sign up - try again'
-    form = UserProfileForm()
-    context = {'form': form, 'error_message': error_message}
+    user_form = UserForm()
+    profile_form = ProfileForm()
+    context = {'user_form': user_form, 'profile_form': profile_form,'error_message': error_message}
     return render(request, 'registration/signup.html', context)

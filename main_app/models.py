@@ -19,6 +19,7 @@ PROFILE_TYPES = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     type = models.CharField(
+        'Wedding Role',
         max_length=1,
         choices=PROFILE_TYPES,
     )
