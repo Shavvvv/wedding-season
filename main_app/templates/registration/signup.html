@@ -7,8 +7,15 @@
 
 <form method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ profile_form }}
+    {{ user_form }}
     <button type="submit" class="btn">Sign Up</button>
 </form>
+
+<script>
+    const typeSelectEl = document.getElementById('id_type');
+    M.FormSelect.init(typeSelectEl, {});
+
+</script>
 
 {% endblock content %}
