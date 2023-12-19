@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +12,27 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
+
 <body>
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
         <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Wedding Season</a></li>
+          <li><a href="{% url 'weddings_list' %}" class="left brand-logo">&nbsp;&nbsp;Wedding Season</a></li>
         </ul>
         <ul class="right">
-          <li><a href="">Placeholder</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'weddings_list' %}">All Weddings</a></li>
+            <li><a href="{% url 'weddings_create' %}">Add Wedding</a></li>
+            <li>
+              <form id="logout-form" action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Log Out</button>
+              </form>
+            </li>
+          {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
@@ -32,4 +45,5 @@
     <div class="right">All Rights Reserved, &copy; 2023 Wedding Season &nbsp;</div>
   </footer>
 </body>
+
 </html>

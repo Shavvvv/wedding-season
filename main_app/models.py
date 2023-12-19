@@ -1,11 +1,18 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 #from django.utils import timezone
 
 EVENT_TYPES = (
     ('RD', 'Rehearsal Dinner'),
     ('RE', 'Reception'),
     ('WC', 'Wedding Ceremony')    
+)
+
+PROFILE_TYPES = (
+    ('B', 'Bride'),
+    ('G', 'Groom'),
+    ('P', 'Planner')    
 )
 
 # Create your models here.
@@ -38,3 +45,14 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['start_date_time']
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_type = models.CharField(
+        max_length=1,
+        choices=PROFILE_TYPES,
+    )
+    wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
