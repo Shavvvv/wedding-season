@@ -28,7 +28,14 @@ class WeddingList(ListView):
 
 class WeddingCreate(CreateView):
     model = Wedding
-    fields = '__all__'
+    fields = ['name', 'description']
+
+    def form_valid(self,form):
+        #Many to Many id troubleshoot
+        self.object = form.save(commit=False)
+        self.object.profiles.add(self.request.user.profile)
+        self.object.save()
+        return super().form_valid(form)
 
 class WeddingDelete(DeleteView):
     model = Wedding

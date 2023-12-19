@@ -16,9 +16,20 @@ PROFILE_TYPES = (
 )
 
 # Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    type = models.CharField(
+        max_length=1,
+        choices=PROFILE_TYPES,
+    )
+   
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
 class Wedding(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
+    profiles = models.ManyToManyField(Profile)
     
     def __str__(self):
         return self.name
@@ -45,14 +56,3 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['start_date_time']
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_type = models.CharField(
-        max_length=1,
-        choices=PROFILE_TYPES,
-    )
-    wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
