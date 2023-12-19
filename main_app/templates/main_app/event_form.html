@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Create an Event</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<script>
+    const typeSelectEl = document.getElementById('id_type');
+    M.FormSelect.init(typeSelectEl, {});
+
+    const startDateEl = document.getElementById('id_start_date_time');
+    const endDateEl = document.getElementById('id_end_date_time');
+
+    function datePickerHelper(element) {
+        M.Datepicker.init(element, {
+            format: 'yyyy-mm-dd',
+            defaultDate: new Date(),
+            setDefaultDate: true,
+            autoClose: true
+        });
+    }
+
+    datePickerHelper(startDateEl);
+    datePickerHelper(endDateEl);
+
+</script>
+
+{% endblock content %}

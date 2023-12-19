@@ -46,3 +46,8 @@ class EventDelete(DeleteView):
     def get_success_url(self):
         wedding = self.object.wedding 
         return reverse('weddings_detail', kwargs={'wedding_id': wedding.id})
+    
+class EventUpdate(UpdateView):
+    model = Event
+    fields = ['description', 'start_date_time', 'end_date_time', 'venue']
+    

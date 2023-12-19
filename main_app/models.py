@@ -34,7 +34,7 @@ class Event(models.Model):
         return f"Event: {self.get_type_display()}"
     
     def get_absolute_url(self):
-        return reverse('events_list', kwargs={'pk': self.wedding.id})
+        return reverse('events_detail', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['start_date_time']
