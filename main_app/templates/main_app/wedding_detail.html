@@ -57,11 +57,17 @@
     </div>
 </div>
 </div>
-
 <script>
-    const typeSelectEl = document.getElementById('id_type');
+    document.getElementById("id_start_date_time").type="datetime-local";
+    document.getElementById("id_end_date_time").type="datetime-local";
+
+      const typeSelectEl = document.getElementById('id_type');
     M.FormSelect.init(typeSelectEl, {});
 
+</script>
+<!--
+<script>
+  
     const startDateEl = document.getElementById('id_start_date_time');
     const endDateEl = document.getElementById('id_end_date_time');
 
@@ -78,5 +84,19 @@
     datePickerHelper(endDateEl);
 
 </script>
+-->
+<!--Shavaun Late Changes-->
+<script>
+    const timer = document.querySelector('.timepicker');
+    M.Timepicker.init(timer,{
+        showClearBtn:true,
+    i18n:{
+    clear: 'clear clock',
+    cancel: 'Cancel',
+    done: 'ADD Time'
+    }
+    });
+    
+    </script>
 
 {% endblock content %}
