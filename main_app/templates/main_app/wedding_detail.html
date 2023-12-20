@@ -73,7 +73,25 @@
     </div>
 
     <div class="col s6">
-
+        <h4>List of Guests</h4>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for guest in wedding.guest_set.all %}
+                <tr>
+                    <td>
+                        {{ guest.first_name }} {{ guest.last_name }}
+                    </td>
+                    <td>{{ guest.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
