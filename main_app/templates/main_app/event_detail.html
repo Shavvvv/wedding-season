@@ -23,7 +23,7 @@
 </div>
 <div class="row">
     <div class="col s6">
-        <h4>All Guests</h4>
+        <h4>All  Wedding Guests</h4>
         <table class="striped">
             <thead>
                 <tr>
@@ -33,6 +33,7 @@
                 </tr>
             </thead>
             <tbody>
+                
                 {% for guest in event.wedding.guest_set.all %}
                 <tr>
                     <td>
@@ -59,8 +60,8 @@
                     <th>Email</th>
                 </tr>
             </thead>
-            <!-- <tbody>
-                {% for guest in event.wedding.guest_set.all %}
+          <tbody>
+            {% for guest in non_guest_list.all %}
                 <tr>
                     <td>
                         {{ guest.first_name }} {{ guest.last_name }}
@@ -68,7 +69,7 @@
                     <td>{{ guest.email }}</td>
                 </tr>
                 {% endfor %}
-            </tbody> -->
+            </tbody> 
         </table>
     </div>
 </div>
