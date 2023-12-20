@@ -2,10 +2,16 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+     /* background-image: url('https://wallpapercave.com/dwp1x/wp11894277.jpg'); */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+
 }
 
 main {
     flex: 1 0 auto;
+  
 }
 
 footer.page-footer {
