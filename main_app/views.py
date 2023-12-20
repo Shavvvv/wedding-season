@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Wedding, Event, Profile
-from .forms import EventForm, UserForm, ProfileForm
+from .forms import EventForm, GuestForm, UserForm, ProfileForm
 
 # Create your views here.
 def home(request):
@@ -17,7 +17,8 @@ def home(request):
 def weddings_detail(request, wedding_id):
     wedding = Wedding.objects.get(id=wedding_id)
     event_form = EventForm()
-    return render(request, 'main_app/wedding_detail.html', {'wedding': wedding, 'event_form': event_form})
+    guest_form = GuestForm()
+    return render(request, 'main_app/wedding_detail.html', {'wedding': wedding, 'event_form': event_form, 'guest_form': guest_form})
 
 @login_required
 def add_event(request, wedding_id):
@@ -26,6 +27,15 @@ def add_event(request, wedding_id):
         new_event = form.save(commit=False)
         new_event.wedding_id = wedding_id
         new_event.save()
+    return redirect('weddings_detail', wedding_id=wedding_id)
+
+@login_required
+def add_guest(request, wedding_id):
+    form = GuestForm(request.POST)
+    if form.is_valid():
+        new_guest = form.save(commit=False)
+        new_guest.wedding_id = wedding_id
+        new_guest.save()
     return redirect('weddings_detail', wedding_id=wedding_id)
 
 class WeddingList(LoginRequiredMixin, ListView):
