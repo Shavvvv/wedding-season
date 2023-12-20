@@ -43,26 +43,6 @@ class Wedding(models.Model):
     def get_absolute_url(self):
         return reverse('weddings_detail', kwargs={'wedding_id': self.id})
     
-class Event(models.Model):
-    type = models.CharField(
-        max_length=2,
-        choices=EVENT_TYPES,
-    )
-    description = models.TextField(max_length=250)
-    start_date_time = models.DateTimeField('Start Date and Time')
-    end_date_time = models.DateTimeField('End Date and Time')
-    venue = models.CharField(max_length=100)
-    wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Event: {self.wedding.name} {self.get_type_display()}"
-    
-    def get_absolute_url(self):
-        return reverse('events_detail', kwargs={'pk': self.id})
-
-    class Meta:
-        ordering = ['start_date_time']
-
 class Guest(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -83,3 +63,24 @@ class Guest(models.Model):
     
     class Meta:
         ordering = ['last_name', 'first_name']
+
+class Event(models.Model):
+    type = models.CharField(
+        max_length=2,
+        choices=EVENT_TYPES,
+    )
+    description = models.TextField(max_length=250)
+    start_date_time = models.DateTimeField('Start Date and Time')
+    end_date_time = models.DateTimeField('End Date and Time')
+    venue = models.CharField(max_length=100)
+    wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE)
+    guests = models.ManyToManyField(Guest)
+
+    def __str__(self):
+        return f"Event: {self.wedding.name} {self.get_type_display()}"
+    
+    def get_absolute_url(self):
+        return reverse('events_detail', kwargs={'pk': self.id})
+
+    class Meta:
+        ordering = ['start_date_time']
