@@ -2,13 +2,14 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from .models import Wedding, Event, Profile
+from .models import Wedding, Event, Profile, Guest
 
 
 # Register your models here.
 admin.site.register(Wedding)
 admin.site.register(Event)
 admin.site.register(Profile)
+admin.site.register(Guest)
 
 # Define an inline admin descriptor for Profile model
 # which acts a bit like a singleton
