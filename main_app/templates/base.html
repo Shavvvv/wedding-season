@@ -27,14 +27,14 @@
           <li>
             <form id="logout-form" action="{% url 'logout' %}" method="POST">
               {% csrf_token %}
-              <button type="submit" class="btn">Log Out</button>
+              <button type="submit" class="btn-flat white-text">LOG OUT</button>
             </form>
           </li>
           {% else %}
           <li>
-            <a href="{% url 'signup' %}">Sign Up</a>
+            <a href="{% url 'signup' %}">SIGN UP</a>
           </li>
-          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a href="{% url 'login' %}">LOG IN</a></li>
           {% endif %}
         </ul>
       </div>
