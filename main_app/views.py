@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Wedding, Event, Profile
+from .models import Wedding, Event, Profile, Guest
 from .forms import EventForm, GuestForm, UserForm, ProfileForm
 
 # Create your views here.
@@ -69,6 +69,15 @@ class WeddingUpdate(LoginRequiredMixin, UpdateView):
 
 class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        guest_id_list= self.object.wedding.guest_set.all().values_list('id')
+        non_guest_list= Guest.objects.exclude(id__in=guest_id_list)
+        #context["guest_id_list"] = guest_id_list
+        context["non_guest_list"] = non_guest_list
+        return context
 
 class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
