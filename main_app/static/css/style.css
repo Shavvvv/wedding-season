@@ -17,6 +17,11 @@ main {
     font-family: 'Lobster', cursive;
 }
 
+#home-page-image {
+    height: 50vh;
+    text-align: center;
+}
+
 footer.page-footer {
     padding-top: 0;
     text-align: right;
