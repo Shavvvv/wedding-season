@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "wedding-season"
+name = "weddingseason"
 version = "0.1.0"
 description = ""
-authors = ["mmarentette <melrosemarentette@gmail.com>"]
+authors = ["Ed Gonzales <edgonzales6@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 django = "^5.0"
 dj-database-url = "^2.1.0"
 daphne = "^4.0.0"
