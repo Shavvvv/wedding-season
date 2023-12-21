@@ -4,9 +4,9 @@
 
 <div class="row">
     <div class="col s8">
-        <h1>{{ wedding.name }}</h1>
+        <h2>{{ wedding.name }}</h2>
     </div>
-    <div class="col s4 right">
+    <div class="col s4">
         <a id="header-btn" class="btn white black-text" href="{% url 'weddings_delete' wedding.id %}">Delete</a>
         <a id="header-btn" class="btn black" href="{% url 'weddings_update' wedding.id %}">Update</a>
     </div>
@@ -20,7 +20,6 @@
 
 <div class="row">
     <div class="col s6">
-
         <h4>Add Event</h4>
         <div class="card">
             <div class="card-content">
@@ -73,25 +72,30 @@
     </div>
 
     <div class="col s6">
-        <h4>List of Guests</h4>
-        <table class="striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for guest in wedding.guest_set.all %}
-                <tr>
-                    <td>
-                        {{ guest.first_name }} {{ guest.last_name }}
-                    </td>
-                    <td>{{ guest.email }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h4>Guest List</h4>
+        <div class="card">
+            <div class="card-content">
+                <p><strong>Total Guest Count:</strong> {{ wedding.guest_set.count }}</p>
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for guest in wedding.guest_set.all %}
+                        <tr>
+                            <td>
+                                {{ guest.first_name }} {{ guest.last_name }}
+                            </td>
+                            <td>{{ guest.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
