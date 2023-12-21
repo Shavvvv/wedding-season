@@ -84,3 +84,10 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['start_date_time']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=250)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for event_id: {self.event_id} @{self.url}"
