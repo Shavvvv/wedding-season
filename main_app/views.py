@@ -73,10 +73,10 @@ class EventDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        guest_id_list= self.object.wedding.guest_set.all().values_list('id')
-        non_guest_list= Guest.objects.exclude(id__in=guest_id_list)
-        #context["guest_id_list"] = guest_id_list
-        context["non_guest_list"] = non_guest_list
+        event_guest_id_list = self.object.guests.all().values_list('id')
+        wedding_guests = Guest.objects.filter(wedding__id=self.object.wedding.id)
+        wedding_guests_not_invited_to_event = wedding_guests.exclude(id__in=event_guest_id_list)
+        context["wedding_guests_not_invited_to_event"] = wedding_guests_not_invited_to_event
         return context
 
 class EventDelete(LoginRequiredMixin, DeleteView):
