@@ -17,9 +17,9 @@
 <body>
   <header class="navbar-fixed">
     <nav>
-      <div class="nav-wrapper">
+      <div class="nav-wrapper black">
         <ul>
-          <li><a href="{% url 'weddings_list' %}" class="left brand-logo">&nbsp;&nbsp;Wedding Season</a></li>
+          <li><a href="{% url 'weddings_list' %}" id="web-title" class="left brand-logo">&nbsp;&nbsp;Wedding Season</a></li>
         </ul>
         <ul class="right">
           {% if user.is_authenticated %}
@@ -45,7 +45,7 @@
     {% block content %}
     {% endblock %}
   </main>
-  <footer class="page-footer">
+  <footer class="page-footer black">
     <div class="right">All Rights Reserved, &copy; 2023 Wedding Season &nbsp;</div>
   </footer>
 </body>

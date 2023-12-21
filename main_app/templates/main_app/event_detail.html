@@ -29,6 +29,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,12 @@
                         {{ guest.first_name }} {{ guest.last_name }}
                     </td>
                     <td>{{ guest.email }}</td>
+                    <td>
+                        <form action="{% url 'unassoc_guest' event.id guest.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn white black-text">-</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -64,7 +71,7 @@
                     <td>
                         <form action="{% url 'assoc_guest' event.id guest.id %}" method="POST">
                             {% csrf_token %}
-                            <button class="btn">+</button>
+                            <button class="btn black">+</button>
                         </form>
                     </td>
                 </tr>

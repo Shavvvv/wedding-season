@@ -44,6 +44,12 @@ def assoc_guest(request, event_id, guest_id):
     event.guests.add(guest_id)
     return redirect('events_detail', pk=event_id)
 
+@login_required
+def unassoc_guest(request, event_id, guest_id):
+    event = Event.objects.get(id=event_id)
+    event.guests.remove(guest_id)
+    return redirect('events_detail', pk=event_id)
+
 class WeddingList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Wedding.objects.filter(profiles__id=self.request.user.profile.id)

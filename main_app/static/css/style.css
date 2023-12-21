@@ -14,6 +14,10 @@ main {
   
 }
 
+#web-title {
+    /* font-family: 'Londrina Shadow', cursive; */
+}
+
 footer.page-footer {
     padding-top: 0;
     text-align: right;
