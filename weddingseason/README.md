@@ -1,6 +1,6 @@
 # WEDDING SEASON
 
-Wedding Season allows you to easily keep track of your wedding and the guest list.
+Wedding Season allows you to easily keep track of your wedding and your guest list.
 
 Not all wedding guests will be invited to all wedding-related events leading up to your big day. Think about your bachelor and bachelorette parties, bridal shower, rehearsal dinner, ceremony, and reception. Keep track of guests invited to each of your wedding events... all in one place!
 
@@ -8,13 +8,14 @@ Not all wedding guests will be invited to all wedding-related events leading up 
 # Screenshots
 
 Home Page
-<img src="https://i.imgur.com/zPl3ski.png">
+<img src="https://i.imgur.com/MhhqnV8.png">
 
 Wedding Details
-
+<img src="https://i.imgur.com/w7e3CRp.png">
 
 Event Details
-
+<img src="https://i.imgur.com/LRA1SJD.png">
+<img src="https://i.imgur.com/fMrFjUn.png">
 
 
 # Technologies Used
