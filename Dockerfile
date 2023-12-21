@@ -21,4 +21,4 @@ ENV DJANGO_SECRET_KEY "secakljsdfalsdjfai382342"
 
 RUN poetry run python manage.py collectstatic --noinput
 
-CMD poetry run daphne -b 0.0.0.0 -p 8080 weddingseason.asgi:application
+CMD poetry run daphne -b 0.0.0.0 -p 8000 weddingseason.asgi:application
