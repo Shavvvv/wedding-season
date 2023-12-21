@@ -3,15 +3,23 @@ body {
     min-height: 100vh;
     flex-direction: column;
      /* background-image: url('https://wallpapercave.com/dwp1x/wp11894277.jpg'); */
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 
 }
 
 main {
     flex: 1 0 auto;
-  
+}
+
+#web-title {
+    font-family: 'Lobster', cursive;
+}
+
+#home-page-image {
+    height: 50vh;
+    text-align: center;
 }
 
 footer.page-footer {
@@ -19,9 +27,6 @@ footer.page-footer {
     text-align: right;
 }
 
-#header-btn{
+#header-btn {
     margin-top: 4.5em;
 }
-
-
-

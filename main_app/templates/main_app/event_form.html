@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %} {% if object %}
 <h1>Edit {{ event.get_type_display }}</h1>
 {% else %}
-<h1>Create an {{ event.get_type_display }}</h1>
+<h1>Add {{ event.get_type_display }}</h1>
 {% endif %}
 
 <form action="" method="POST">
@@ -9,7 +9,7 @@
   <table>
     {{ form.as_table }}
   </table>
-  <button type="submit" class="btn">Submit</button>
+  <button type="submit" class="btn black">Submit</button>
 </form>
 <script>
     document.getElementById("id_start_date_time").type="datetime-local";

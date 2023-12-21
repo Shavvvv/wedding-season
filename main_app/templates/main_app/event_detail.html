@@ -2,17 +2,42 @@
 
 {% block content %}
 
-<h1>{{event.wedding.name }}</h1>
+<div class="row">
+    <div class="col s8">
+        <h2>{{event.wedding.name }}</h2>
+    </div>
+    <div class="col s4">
+        <a id="header-btn" class="btn black" href="{% url 'weddings_detail' event.wedding_id %}">Back to Wedding</a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col s6">
         <div class="card">
             <div class="card-content">
                 <span class="card-title">{{ event.get_type_display }}</span>
-                <br>
-                <p>Venue: {{ event.venue}}</p>
-                <p>Starts: {{ event.start_date_time}}</p>
-                <p>Ends: {{ event.end_date_time}}</p>
-                <p>Description: {{ event.description }}</p>
+                <table>
+                    <tr>
+                        <th>Venue</th>
+                        <td>{{ event.venue }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ event.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Starts</th>
+                        <td>{{ event.start_date_time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ends</th>
+                        <td>{{ event.end_date_time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Number of Guests Invited</th>
+                        <td>{{ event.guests.count }}</td>
+                    </tr>
+                </table>
             </div>
             <div class="card-action">
                 <a href="{% url 'events_update' event.id %}">Update</a>
@@ -20,30 +45,44 @@
             </div>
         </div>
     </div>
+    <div class="col s6">
+        {% for photo in event.photo_set.all %}
+        <img class="responsive-img card-panel" src="{{ photo.url }}">
+        {% empty %}
+        <div class="card-panel center-align">No Photos Uploaded</div>
+        <form action="{% url 'add_photo' event.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <br><br>
+            <button type="submit" class="btn black">Upload Photo</button>
+        </form>  
+        {% endfor %}
+    </div>
 </div>
+
 <div class="row">
     <div class="col s6">
-        <h4>All  Wedding Guests</h4>
+        <h4>Event Guest List</h4>
         <table class="striped">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Add</th>
+                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
                 
-                {% for guest in event.wedding.guest_set.all %}
+                {% for guest in event.guests.all %}
                 <tr>
                     <td>
                         {{ guest.first_name }} {{ guest.last_name }}
                     </td>
                     <td>{{ guest.email }}</td>
                     <td>
-                        <form action="{% url 'assoc_guest' event.id guest.id %}" method="POST">
+                        <form action="{% url 'unassoc_guest' event.id guest.id %}" method="POST">
                             {% csrf_token %}
-                            <button class="btn">+</button>
+                            <button class="btn white black-text">-</button>
                         </form>
                     </td>
                 </tr>
@@ -52,21 +91,28 @@
         </table>
     </div>
     <div class="col s6">
-        <h4>Invited Guests</h4>
+        <h4>Invite More Guests</h4>
         <table class="striped">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Add</th>
                 </tr>
             </thead>
           <tbody>
-            {% for guest in non_guest_list.all %}
+            {% for guest in wedding_guests_not_invited_to_event.all %}
                 <tr>
                     <td>
                         {{ guest.first_name }} {{ guest.last_name }}
                     </td>
                     <td>{{ guest.email }}</td>
+                    <td>
+                        <form action="{% url 'assoc_guest' event.id guest.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn black">+</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody> 

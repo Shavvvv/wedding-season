@@ -1,3 +1,6 @@
+import uuid
+import boto3
+import os
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -6,7 +9,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Wedding, Event, Profile, Guest
+from .models import Wedding, Event, Guest, Photo
 from .forms import EventForm, GuestForm, UserForm, ProfileForm
 
 # Create your views here.
@@ -30,6 +33,27 @@ def add_event(request, wedding_id):
     return redirect('weddings_detail', wedding_id=wedding_id)
 
 @login_required
+def add_photo(request, event_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to event_id or event (if you have a event object)
+            Photo.objects.create(url=url, event_id=event_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('events_detail', pk=event_id)
+
+@login_required
 def add_guest(request, wedding_id):
     form = GuestForm(request.POST)
     if form.is_valid():
@@ -42,6 +66,12 @@ def add_guest(request, wedding_id):
 def assoc_guest(request, event_id, guest_id):
     event = Event.objects.get(id=event_id)
     event.guests.add(guest_id)
+    return redirect('events_detail', pk=event_id)
+
+@login_required
+def unassoc_guest(request, event_id, guest_id):
+    event = Event.objects.get(id=event_id)
+    event.guests.remove(guest_id)
     return redirect('events_detail', pk=event_id)
 
 class WeddingList(LoginRequiredMixin, ListView):
@@ -73,10 +103,10 @@ class EventDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        guest_id_list= self.object.wedding.guest_set.all().values_list('id')
-        non_guest_list= Guest.objects.exclude(id__in=guest_id_list)
-        #context["guest_id_list"] = guest_id_list
-        context["non_guest_list"] = non_guest_list
+        event_guest_id_list = self.object.guests.all().values_list('id')
+        wedding_guests = Guest.objects.filter(wedding__id=self.object.wedding.id)
+        wedding_guests_not_invited_to_event = wedding_guests.exclude(id__in=event_guest_id_list)
+        context["wedding_guests_not_invited_to_event"] = wedding_guests_not_invited_to_event
         return context
 
 class EventDelete(LoginRequiredMixin, DeleteView):
