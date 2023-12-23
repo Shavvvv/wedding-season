@@ -31,6 +31,7 @@ Event Details
 ### Libraries, Frameworks & Tools
 - Django
 - Materialize
+- Docker
 
 
 # Getting Started
