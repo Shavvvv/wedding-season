@@ -10,9 +10,13 @@ PROFILE_TYPES = (
 )
 
 EVENT_TYPES = (
-    ('RD', 'Rehearsal Dinner'),
+    ('BC', 'Bachelor Party'),
+    ('BT', 'Bachelorette Party'),
+    ('BS', 'Bridal Shower'),
     ('RE', 'Reception'),
-    ('WC', 'Wedding Ceremony')    
+    ('RD', 'Rehearsal Dinner'),
+    ('WB', 'Wedding Brunch'),
+    ('WC', 'Wedding Ceremony')
 )
 
 RSVP_CHOICES = (
